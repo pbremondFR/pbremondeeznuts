@@ -38,3 +38,21 @@ spec:
     - protocol: TCP
       port: 8888
       targetPort: 8888
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wil-playground-ingress
+  labels:
+    app: wil-playground
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    traefik.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wil-playground-service
+          servicePort: 8888
